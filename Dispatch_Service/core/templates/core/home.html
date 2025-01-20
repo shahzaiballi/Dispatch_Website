@@ -1,0 +1,157 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="relative overflow-hidden bg-gradient-to-r from-gray-900 to-blue-900">
+    <!-- Animated Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.4\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative pt-24 pb-20 lg:pt-32 lg:pb-28">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Left Column -->
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm font-semibold tracking-wide">
+                            Professional Dispatch Services
+                        </span>
+                        <h1 class="text-4xl lg:text-6xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+                            Navigate Your Success on the Road
+                        </h1>
+                        <p class="text-xl text-gray-300 max-w-xl">
+                            Expert dispatch solutions that keep your trucks moving and maximize your earnings. 24/7 support, premium loads, and industry-leading service.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="{% url 'signup' %}" class="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-300 transform hover:scale-105">
+                            Start Now
+                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </a>
+                        <a href="{% url 'services' %}" class="inline-flex items-center px-6 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-medium transition-all duration-300">
+                            View Services
+                        </a>
+                    </div>
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-8 pt-8 border-t border-gray-800">
+                        <div>
+                            <div class="text-3xl font-bold text-blue-400">10+</div>
+                            <div class="text-gray-400 mt-1">Years Experience</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-blue-400">24/7</div>
+                            <div class="text-gray-400 mt-1">Support</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-blue-400">98%</div>
+                            <div class="text-gray-400 mt-1">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column -->
+                <div class="relative lg:block">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-3xl opacity-20 animate-pulse"></div>
+                    <img 
+                        src="{% static 'images/truck-digital-art-illustration.jpg' %}" 
+                        alt="Professional Dispatch"
+                        class="relative w-full rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
+                        onerror="this.src='/api/placeholder/800/600';this.onerror=null;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Services Section -->
+<div class="bg-gray-900 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4">Why Choose Us?</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+                At SpeedyHauls, we've been helping truckers stay on the road and maximize their earnings for over ten years. As a registered company, we offer the best rates in the market and have built our own extensive network of reliable brokers.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Service Cards with Hover Effects -->
+            <div class="group relative p-8 rounded-2xl bg-gradient-to-b from-gray-800/50 to-gray-900/50 border border-gray-800/50 hover:border-blue-500/50 transition-all duration-300">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative">
+                    <div class="w-12 h-12 mb-6 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Fast Response Time</h3>
+                    <p class="text-gray-400">24/7 dedicated support ensuring your operations run smoothly without interruption.</p>
+                </div>
+            </div>
+
+            <div class="group relative p-8 rounded-2xl bg-gradient-to-b from-gray-800/50 to-gray-900/50 border border-gray-800/50 hover:border-blue-500/50 transition-all duration-300">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative">
+                    <div class="w-12 h-12 mb-6 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Premium Network</h3>
+                    <p class="text-gray-400">Access to top-tier loads through our extensive network of verified brokers.</p>
+                </div>
+            </div>
+
+            <div class="group relative p-8 rounded-2xl bg-gradient-to-b from-gray-800/50 to-gray-900/50 border border-gray-800/50 hover:border-blue-500/50 transition-all duration-300">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative">
+                    <div class="w-12 h-12 mb-6 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Secure Operations</h3>
+                    <p class="text-gray-400">Industry-leading practices ensuring safe and reliable dispatch services.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mt-20 bg-[#1a237e]/30 rounded-xl p-8 border border-gray-800">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Ready to Maximize Your Earnings?</h2>
+                <p class="text-gray-300">Let us handle your dispatch while you focus on driving</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Email -->
+                <a href="mailto:contact@speedyhauls.com" class="bg-[#1e2738] hover:bg-gray-800 p-6 rounded-xl transition duration-300 border border-gray-800">
+                    <div class="text-4xl mb-4">📧</div>
+                    <h3 class="text-xl font-semibold mb-2">Email Us</h3>
+                    <p class="text-gray-400">Get your questions answered</p>
+                </a>
+
+                <!-- Phone -->
+                <a href="tel:+1234567890" class="bg-[#1e2738] hover:bg-gray-800 p-6 rounded-xl transition duration-300 border border-gray-800">
+                    <div class="text-4xl mb-4">📞</div>
+                    <h3 class="text-xl font-semibold mb-2">Call Now</h3>
+                    <p class="text-gray-400">Speak with a dispatcher</p>
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/1234567890" class="bg-[#1e2738] hover:bg-gray-800 p-6 rounded-xl transition duration-300 border border-gray-800">
+                   <div class="text-4xl mb-4">💬</div>
+                <h3 class="text-xl font-semibold mb-2">WhatsApp</h3>
+                <p class="text-gray-400">Message us anytime</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
