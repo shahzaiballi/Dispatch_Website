@@ -158,13 +158,13 @@
                 loadingOverlay.style.display = 'none';
             }, 300);
         });
-
+    
         // Mobile menu
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('active');
         }
-
+    
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
             const mobileMenu = document.getElementById('mobile-menu');
@@ -174,13 +174,30 @@
                 mobileMenu.classList.remove('active');
             }
         });
-
-        // Add loading animation to links
+    
+        // Add loading animation only to internal links
         document.addEventListener('DOMContentLoaded', function() {
             const links = document.querySelectorAll('a');
+            const currentDomain = window.location.hostname;
+    
             links.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    if (!e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey && link.target !== '_blank') {
+                    // Create a temporary anchor element to parse the href
+                    const parser = document.createElement('a');
+                    parser.href = this.href;
+    
+                    // Check if the link is internal
+                    const isInternalLink = (
+                        parser.hostname === currentDomain && // Same domain
+                        !this.hasAttribute('download') && // Not a download link
+                        this.target !== '_blank' && // Not opening in new tab
+                        !this.href.startsWith('tel:') && // Not a telephone link
+                        !this.href.startsWith('mailto:') && // Not an email link
+                        !this.href.startsWith('https://wa.me/') // Not a WhatsApp link
+                    );
+    
+                    // Only show loading overlay for internal links
+                    if (isInternalLink && !e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey) {
                         const loadingOverlay = document.getElementById('loading-overlay');
                         loadingOverlay.style.display = 'flex';
                         loadingOverlay.style.opacity = '1';

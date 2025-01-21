@@ -1,0 +1,31 @@
+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
+
+git clone https://shahzaiballi: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@github.com/shahzaiballi/Dispatch_Website.git
+
+
+[program:gunicorn]
+directory=/home/ubuntu/Dispatch_Website
+command=/home/ubuntu/env/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/Dispatch_Website/app.sock Dispatch_Service.wsgi:application  
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/gunicorn/gunicorn.err.log
+stdout_logfile=/var/log/gunicorn/gunicorn.out.log
+
+[group:guni]
+programs:gunicorn
+
+
+server{
+
+        listen 80;
+        server_name 16.171.33.147;
+
+
+        location / {
+
+                include proxy_params;
+                proxy_pass http://unix:/home/ubuntu/Dispatch_Website/app.sock;
+
+        }
+
+}
