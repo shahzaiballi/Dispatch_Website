@@ -25,10 +25,12 @@ class SignUp(models.Model):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20)
     truck_type = models.CharField(max_length=20, choices=TRUCK_TYPES)
+    other_truck_type = models.CharField(max_length=50, blank=True, null=True)  # New field
     trailer_size = models.CharField(max_length=50)
     mc_copy = models.FileField(upload_to='documents/mc/')
     noa = models.FileField(upload_to='documents/noa/')
     insurance_cert = models.FileField(upload_to='documents/insurance/')
+    factoring_doc = models.FileField(upload_to='documents/factoring/')  # New field
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
