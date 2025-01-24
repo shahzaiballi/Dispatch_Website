@@ -52,6 +52,20 @@
         .mobile-menu.active {
             transform: translateX(0);
         }
+
+    /* Improved mobile image styles */
+    @media (max-width: 991px) {
+    .backdrop-blur-\[2px\] {
+        backdrop-filter: blur(2px);
+    }
+}
+
+@media (min-width: 992px) {
+    .mobile-menu {
+        display: none !important;
+    }
+}
+
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
@@ -70,16 +84,16 @@
                 <div class="flex items-center">
                     <a href="{% url 'home' %}" class="text-2xl font-bold bg-gradient-to-r from-white to-blue-400 text-transparent bg-clip-text">SpeedyHauls</a>
                 </div>
-
+    
                 <!-- Mobile Menu Button -->
-                <button class="lg:hidden text-gray-300 hover:text-white focus:outline-none" onclick="toggleMobileMenu()">
+                <button class="min-[992px]:hidden text-gray-300 hover:text-white focus:outline-none" onclick="toggleMobileMenu()">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-
+    
                 <!-- Desktop Menu -->
-                <div class="hidden lg:flex space-x-1">
+                <div class="hidden min-[992px]:flex space-x-1">
                     <a href="{% url 'home' %}" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300">Home</a>
                     <a href="{% url 'services' %}" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300">Services</a>
                     <a href="{% url 'contact' %}" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300">Contact</a>
@@ -87,9 +101,9 @@
                 </div>
             </div>
         </div>
-
+    
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu fixed inset-y-0 left-0 w-64 bg-gray-900 border-r border-gray-800 p-6 lg:hidden shadow-xl">
+        <div id="mobile-menu" class="mobile-menu fixed inset-y-0 left-0 w-64 bg-gray-900 border-r border-gray-800 p-6 min-[992px]:hidden shadow-xl">
             <div class="flex flex-col space-y-4">
                 <a href="{% url 'home' %}" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300">Home</a>
                 <a href="{% url 'services' %}" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300">Services</a>
@@ -98,6 +112,7 @@
             </div>
         </div>
     </nav>
+    
     <!-- Messages -->
     {% if messages %}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
@@ -150,61 +165,117 @@
     </footer>
 
     <script>
-        // Loading animation
-        window.addEventListener('load', function() {
-            const loadingOverlay = document.getElementById('loading-overlay');
-            loadingOverlay.style.opacity = '0';
-            setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-            }, 300);
-        });
-    
-        // Mobile menu
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('active');
-        }
-    
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileMenuButton = document.querySelector('button');
+        // Loading animation management
+        const loadingManager = {
+            overlay: null,
             
-            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
-                mobileMenu.classList.remove('active');
-            }
-        });
+            init() {
+                this.overlay = document.getElementById('loading-overlay');
+                this.setupEventListeners();
+            },
     
-        // Add loading animation only to internal links
-        document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('a');
-            const currentDomain = window.location.hostname;
+            show() {
+                if (this.overlay) {
+                    this.overlay.style.display = 'flex';
+                    this.overlay.style.opacity = '1';
+                }
+            },
     
-            links.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Create a temporary anchor element to parse the href
-                    const parser = document.createElement('a');
-                    parser.href = this.href;
+            hide() {
+                if (this.overlay) {
+                    this.overlay.style.opacity = '0';
+                    setTimeout(() => {
+                        this.overlay.style.display = 'none';
+                    }, 300);
+                }
+            },
     
-                    // Check if the link is internal
-                    const isInternalLink = (
-                        parser.hostname === currentDomain && // Same domain
-                        !this.hasAttribute('download') && // Not a download link
-                        this.target !== '_blank' && // Not opening in new tab
-                        !this.href.startsWith('tel:') && // Not a telephone link
-                        !this.href.startsWith('mailto:') && // Not an email link
-                        !this.href.startsWith('https://wa.me/') // Not a WhatsApp link
-                    );
+            setupEventListeners() {
+                // Handle initial page load
+                window.addEventListener('load', () => this.hide());
     
-                    // Only show loading overlay for internal links
-                    if (isInternalLink && !e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey) {
-                        const loadingOverlay = document.getElementById('loading-overlay');
-                        loadingOverlay.style.display = 'flex';
-                        loadingOverlay.style.opacity = '1';
+                // Handle browser back/forward navigation
+                window.addEventListener('pageshow', (event) => {
+                    // Hide loading overlay if page is loaded from cache (back/forward navigation)
+                    if (event.persisted) {
+                        this.hide();
                     }
                 });
-            });
+    
+                // Handle popstate events (browser back/forward buttons)
+                window.addEventListener('popstate', () => this.hide());
+    
+                // Setup link click handling
+                this.setupLinkHandlers();
+            },
+    
+            setupLinkHandlers() {
+                const links = document.querySelectorAll('a');
+                const currentDomain = window.location.hostname;
+    
+                links.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        const parser = document.createElement('a');
+                        parser.href = link.href;
+    
+                        const isInternalLink = (
+                            parser.hostname === currentDomain &&
+                            !link.hasAttribute('download') &&
+                            link.target !== '_blank' &&
+                            !link.href.startsWith('tel:') &&
+                            !link.href.startsWith('mailto:') &&
+                            !link.href.startsWith('https://wa.me/')
+                        );
+    
+                        if (isInternalLink && !e.ctrlKey && !e.shiftKey && !e.metaKey && !e.altKey) {
+                            this.show();
+                        }
+                    });
+                });
+            }
+        };
+    
+        // Mobile menu management
+        const mobileMenuManager = {
+            menu: null,
+            button: null,
+    
+            init() {
+                this.menu = document.getElementById('mobile-menu');
+                this.button = document.querySelector('button');
+                this.setupEventListeners();
+            },
+    
+            toggle() {
+                this.menu?.classList.toggle('active');
+            },
+    
+            close() {
+                this.menu?.classList.remove('active');
+            },
+    
+            setupEventListeners() {
+                // Handle click outside menu
+                document.addEventListener('click', (event) => {
+                    if (this.menu && this.button && 
+                        !this.menu.contains(event.target) && 
+                        !this.button.contains(event.target)) {
+                        this.close();
+                    }
+                });
+            }
+        };
+    
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            loadingManager.init();
+            mobileMenuManager.init();
         });
+    
+        // Expose toggle function for mobile menu button
+        function toggleMobileMenu() {
+            mobileMenuManager.toggle();
+        }
     </script>
-</body>
-</html>
+    </body>
+    </html>
