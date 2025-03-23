@@ -69,8 +69,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -85,7 +85,7 @@ DATABASES = {
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET')
 
-AWS_STORAGE_BUCKET_NAME = "dispatch-bkt-01"
+AWS_STORAGE_BUCKET_NAME = "speedyhauls-bkt-01"
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 AWS_S3_FILE_OVERWRITE = False
 
